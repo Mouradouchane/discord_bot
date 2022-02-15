@@ -15,6 +15,10 @@ client = discord.Client()
 # KEY for Tenor API's "use yours"
 tenor_key = ""
 
+# KEY & URL for Nasa API's
+nasa_url = "https://api.nasa.gov/planetary/apod?api_key="
+nasa_key = "" # use yours 
+
 # when discord client is ready 
 @client.event
 async def on_ready():
@@ -69,7 +73,6 @@ async def on_message(message):
                 await message.channel.send(joke["delivery"])
 
         
-
         # example send gif using tenor API
         if user_msg.lower() == "!gif":
             # max result comming from gif API
@@ -91,6 +94,22 @@ async def on_message(message):
 
         if user_msg.lower() == "!random":
             await message.channel.send(random.randint(-100,100))
+
+    
+        # example : using nasa API to get Photo Of the Day
+        if user_msg.lower() == "!nasa":
+            # send request for photo of the day
+            request = requests.get(nasa_url+nasa_key)
+            if request.status_code == 200:
+                # load comming data from that response 
+                data = json.loads(request.content)
+                # send msg to discord 
+                await message.channel.send("Nasa Photo of The Day")
+                await message.channel.send(data["url"])
+                await message.channel.send(data["explanation"])
+            else:
+                await message.channel.send("Bad Conncetion to Nasa API's")
+
 
 # run bot
 client.run(token)
