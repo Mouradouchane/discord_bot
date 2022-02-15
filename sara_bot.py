@@ -1,16 +1,26 @@
+from email import message_from_binary_file
+import json
 import random
+import requests 
 import discord # discord moduel important for dealing with discord API's & BOT 
 
-#  *** token key important for anything , you need one ***
-token = ""
+# joke API for get jokes 
+from jokeapi import Jokes # Import the Jokes class
+import asyncio
 
-# discord client object for access discord API's & services 
+# KEY for Discord API's & client "use yours"
+token = ""
 client = discord.Client()
 
+# KEY for Tenor API's "use yours"
+tenor_key = ""
+
+# when discord client is ready 
 @client.event
 async def on_ready():
     print("bot {0.user} is online now".format(client))
 
+# when someone send message 
 @client.event
 async def on_message(message):
     # get user name only without #....
@@ -34,16 +44,53 @@ async def on_message(message):
         #
 
         # example if user sayed hello
-        if user_msg.lower() == "hello": 
+        if user_msg.lower() == "hello sara": 
             # sara say hello + his name
-            await message.channel.send(f"hello {username}")
+            await message.channel.send(f"hi there , {username}")
             return
+
+
+        # example : give reaction to message
+        if user_msg.lower() == "give me hearth":
+            # send reaction emoji as unicode
+            # UNICODE list : https://unicode.org/emoji/charts/full-emoji-list.html#1f970
+            await message.add_reaction("\U0001F970")
+
+
+        # example : send a joke using jokes API
+        if user_msg.lower() == "give me a joke" or user_msg.lower() == "sara 3tini nokta" or user_msg.lower() == "!joke":
+            j = await Jokes() # Initialise the class
+            joke = await j.get_joke() # Retrieve a random joke
+            if joke["type"] == "single": 
+                # send joke
+                await message.channel.send(joke["joke"])
+            else:
+                await message.channel.send(joke["setup"])
+                await message.channel.send(joke["delivery"])
+
+        
+
+        # example send gif using tenor API
+        if user_msg.lower() == "!gif":
+            # max result comming from gif API
+            max_gifs_request = 8
+            index = random.randint(0,max_gifs_request-1)
+            # send requst for 'smart gift'
+            request = requests.get( "https://g.tenor.com/v1/search?q=%s&key=%s&limit=%s" % ("smart", tenor_key , max_gifs_request) )
+
+            # if respone from server was 200 mean it's GOOD 
+            if request.status_code == 200:
+                # save response 
+                data = json.loads(request.content)["results"]
+                print(data[index]["media"][0]["gif"]["url"])
+                # pick & random gif & send it 
+                await message.channel.send( data[index]["media"][0]["gif"]["url"] )
+            else : 
+                await message.channel.send( "bad response from gif's api :sad:" )
+
 
         if user_msg.lower() == "!random":
             await message.channel.send(random.randint(-100,100))
-
-    if user_msg.lower() == "sara":
-        await message.channel.send("hi there i can't response in this channel")
 
 # run bot
 client.run(token)
