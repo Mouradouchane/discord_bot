@@ -4,6 +4,7 @@ a simple discord bot for testing &amp; learning
 # needed :
 ### modules:
 - discord
+- dotenv
 - requests
 - json
 ### API's Key's:
