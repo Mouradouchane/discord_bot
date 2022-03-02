@@ -9,7 +9,7 @@ import discord # discord moduel important for dealing with discord API's & BOT
 # dotenv moduel for loading hidden keys in envirement 
 from dotenv import dotenv_values
 keys = dotenv_values(".env") # load keys from env file
-#import asyncio
+import asyncio
 
 # set key's
 discord_key = keys["discord_key"]
@@ -138,9 +138,9 @@ async def on_message(msg):
 
 
     # example if user sayed hello
-    if msg.content == "hello sara" or msg.content == "hi sara" : 
+    if msg.content == "hello" or msg.content == "hi" or  msg.content == "salam" or msg.content == "slm": 
         # sara say hello + his name
-        await msg.channel.send(f"hi there , {username}")
+        await msg.channel.send(f"OH ! Hi There , {username}")
         return
 
     #send random reaction sometimes
@@ -150,7 +150,7 @@ async def on_message(msg):
     # example : using nasa API to get Photo Of the Day
     if message[0].lower() == "!nasa":
         try:
-            await msg.channel.send("Nasa Photo of The Day")
+            await msg.channel.send("Nasa : Photo of The Day")
             await msg.channel.send(nasa.get_photo(nasa_url,nasa_key))
             await msg.channel.send(nasa.get_description(nasa_url,nasa_key))
 
