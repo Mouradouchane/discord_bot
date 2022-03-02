@@ -1,0 +1,4 @@
+ez_setup
+discord
+python-dotenv
+requests
