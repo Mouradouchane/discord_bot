@@ -1,4 +1,4 @@
-## simple discord bot for testing &amp; learning 😆
+## discord bot constructed on python for testing &amp; learning 😆
 
 ## needed :
 ### API's Key's:
@@ -6,15 +6,16 @@
 - tenor key
 - Nasa token
 
-### installation :
-> 1 : you need latest version of **python** && **pip**
+### instructions installation  :
+* 1 : you need latest version of **python** && **pip**
+> https://www.python.org/downloads/
+> python -m pip install --upgrade pip
 
-> 2 : install needed modules in **requirements.txt**
-```
-pip install -r requirements.txt
-```
+* 2 : install needed modules in **requirements.txt**
+> pip install -r requirements.txt
 
-> 3 : make **.env** file & put it in same location with **sara_bot.py** , then put on it your **API's Key's**
+* 3 : make **.env** file & put it in same location with **bot.py** , then put on it your **API's Key's**
+** example : **
 ```.env
 discord_key=xxxxxxxxx
 tenor_key=xxxxxxxxxxx
@@ -23,9 +24,16 @@ trans_key=xxxxxxxxxxx
 nasa_url=https://api.nasa.gov/planetary/apod?api_key=
 ```   
 
-> 4 : last thing run bot **python sara_bot.py**
+* 4 : last thing run bot 
+> **python bot.py** 
+
+or 
+
+> **py bot.py**
+
+output should be like this
 ```
-# output should be like this
-bot SARA#0302 is online now
+# bot BOT_NAME#0302 is online now
 ```
+
 
