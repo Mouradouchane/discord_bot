@@ -2,9 +2,9 @@
 
 ## needed :
 ### API's Key's:
-- discord token
-- tenor key
-- Nasa token
+- discord token key
+- tenor token key
+- Nasa token key
 
 ### instructions installation  :
 * 1 : you need latest version of **python** && **pip**
